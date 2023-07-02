@@ -1,0 +1,30 @@
+#FormBox {
+  width: fit-content;
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 10px 100px 10px;
+  padding: 20px;
+  text-decoration: none;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+}
+
+#Icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  padding: 5px;
+  margin: 5px;
+  background-color: #f01780;
+  color: white;
+}
+
+#Text {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 10;
+  text-decoration: none;
+}

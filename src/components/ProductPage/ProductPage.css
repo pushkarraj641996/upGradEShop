@@ -1,0 +1,44 @@
+#OuterLayout {
+  display: flex;
+  justify-content: flex-start;
+  width: 70%;
+  height: 50%;
+  height: auto;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 3;
+  color: black;
+  margin: 10px;
+  margin-top: 100px;
+  padding: 10px;
+}
+
+#OuterLayout img {
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+}
+
+#ProductInfoLayout {
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  height: auto;
+  width: 50%;
+  margin-left: 100px;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+#Heading {
+  display: flex;
+  width: 100%;
+  font-family: inherit;
+  color: inherit;
+}
+
+#Heading * {
+  margin: 5px;
+  align-content: center;
+}
