@@ -1,0 +1,33 @@
+#OuterLayout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  margin: 30px;
+  padding: 10px;
+}
+
+#Filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+#Sort {
+  display: flex;
+  justify-content: flex-start;
+  width: 25%;
+  margin-left: 100px;
+}
+
+#Catalog {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 25px;
+  padding: 25px;
+  width: 90%;
+}

@@ -3,53 +3,79 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, Button, CardActionArea, CardActions } from "@mui/material";
+import { Button, CardActionArea, CardActions } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useSelector } from "react-redux";
 
 import "./Card.css";
 
-export default function ActionAreaCard() {
+const ProductCardView = (props) => {
+  const isAdminLoggedIn = useSelector(
+    (state) => state.userAuth.isAdminLoggedIn
+  );
   return (
     <Card
       sx={{
-        maxWidth: 250,
+        maxWidth: 280,
+        maxHeight: 450,
         boxShadow: 5,
+        margin: 3,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around",
+        overflow: "scroll",
       }}
     >
       <CardActionArea>
         <CardMedia
           component="img"
-          height="200"
-          image="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e72f9a48-7068-4583-a509-b4580a4011ab/custom-nike-air-max-95-unlocked-by-you.png"
+          image={props.data.imageURL}
           alt="green iguana"
+          sx={{ height: 200 }}
         />
-        <CardContent id="CardBox">
+        <CardContent id="CardItems">
           <div className="Elem">
-            <Typography gutterBottom variant="h6" component="div">
-              Lizard
+            <Typography gutterBottom variant="h6" component="div" fontSize={17}>
+              {props.data.name}
             </Typography>
-            <Typography gutterBottom variant="h6" component="div" align="right">
-              Lizard2
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="div"
+              align="right"
+              fontSize={20}
+              marginLeft={5}
+              marginRight={3}
+            >
+              &#8377;{props.data.price}
             </Typography>
           </div>
           <Typography variant="body3" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {props.data.Description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <div className="Elem">
-          <Button size="small" color="primary" variant="contained">
+          <Button
+            size="small"
+            color="primary"
+            variant="contained"
+            onClick={() => props.clickHandler(props.id)}
+          >
             Buy
           </Button>
-          <div id="SubElem">
-            <EditIcon color="action" />
-            <DeleteIcon color="action" />
-          </div>
+          {isAdminLoggedIn ? (
+            <div id="SubElem">
+              <EditIcon color="action" />
+              <DeleteIcon color="action" />
+            </div>
+          ) : null}
         </div>
       </CardActions>
     </Card>
   );
-}
+};
+
+export default ProductCardView;

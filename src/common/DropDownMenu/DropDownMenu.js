@@ -5,24 +5,20 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 
-export default function SelectAutoWidth() {
-  const [age, setAge] = React.useState("10");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
+const SelectAutoWidth = (props) => {
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 200 }}>
         <FormHelperText>Sort By:</FormHelperText>
-        <Select value={age} onChange={handleChange}>
-          <MenuItem value={10}>Default</MenuItem>
-          <MenuItem value={21}>Price: High to Low</MenuItem>
-          <MenuItem value={22}>Price: Low to High</MenuItem>
-          <MenuItem value={22}>Newest</MenuItem>
+        <Select value={props.value} onChange={props.clickHandler}>
+          {props.list.map((item, index) => (
+            <MenuItem key={index} value={index}>
+              {item}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </div>
   );
-}
+};
+export default SelectAutoWidth;

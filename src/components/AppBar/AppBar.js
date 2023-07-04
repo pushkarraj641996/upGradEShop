@@ -72,46 +72,45 @@ const ResponsiveAppBar = (props) => {
           </Search>
         </div>
       ) : null}
-      {isLoggedIn === true ? 
-      <div id="LogoBar">
-      <Button
-        variant="text"
-        color="inherit"
-        style={{ textDecoration: "underline" }}
-        onClick={() => props.onBtnClick("login-page")}
-      >
-        Home
-      </Button>
-      <Button
-        variant="text"
-        color="inherit"
-        style={{ textDecoration: "underline" }}
-        onClick={() => props.onBtnClick("signup-page")}
-      >
-        Logout
-      </Button>
-    </div>
-      
-      :
-      <div id="LogoBar">
-        <Button
-          variant="text"
-          color="inherit"
-          style={{ textDecoration: "underline" }}
-          onClick={() => props.onBtnClick("login-page")}
-        >
-          Login
-        </Button>
-        <Button
-          variant="text"
-          color="inherit"
-          style={{ textDecoration: "underline" }}
-          onClick={() => props.onBtnClick("signup-page")}
-        >
-          Signup
-        </Button>
-      </div>
-}
+      {isLoggedIn === true ? (
+        <div id="LogoBar">
+          <Button
+            variant="text"
+            color="inherit"
+            style={{ textDecoration: "underline" }}
+            onClick={() => props.onBtnClick("home-page")}
+          >
+            Home
+          </Button>
+          <Button
+            variant="text"
+            color="inherit"
+            style={{ textDecoration: "underline" }}
+            onClick={() => props.onBtnClick("signoff-page")}
+          >
+            Logout
+          </Button>
+        </div>
+      ) : (
+        <div id="LogoBar">
+          <Button
+            variant="text"
+            color="inherit"
+            style={{ textDecoration: "underline" }}
+            onClick={() => props.onBtnClick("login-page")}
+          >
+            Login
+          </Button>
+          <Button
+            variant="text"
+            color="inherit"
+            style={{ textDecoration: "underline" }}
+            onClick={() => props.onBtnClick("signup-page")}
+          >
+            Signup
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
