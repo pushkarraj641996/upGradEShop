@@ -72,6 +72,27 @@ const ResponsiveAppBar = (props) => {
           </Search>
         </div>
       ) : null}
+      {isLoggedIn === true ? 
+      <div id="LogoBar">
+      <Button
+        variant="text"
+        color="inherit"
+        style={{ textDecoration: "underline" }}
+        onClick={() => props.onBtnClick("login-page")}
+      >
+        Home
+      </Button>
+      <Button
+        variant="text"
+        color="inherit"
+        style={{ textDecoration: "underline" }}
+        onClick={() => props.onBtnClick("signup-page")}
+      >
+        Logout
+      </Button>
+    </div>
+      
+      :
       <div id="LogoBar">
         <Button
           variant="text"
@@ -90,6 +111,7 @@ const ResponsiveAppBar = (props) => {
           Signup
         </Button>
       </div>
+}
     </div>
   );
 };
