@@ -1,16 +1,28 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import ResponsiveAppBar from "./components/AppBar/AppBar";
 import Footer from "./components/Footer/Footer";
-import { Provider } from "react-redux";
-import store from "./common/store/Store";
+
 import SignInForm from "./components/SignInForm/SignInForm";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
+import Card from "./components/Card/Card";
+import { useSelector } from "react-redux";
 
 import "./App.css";
 
 const App = () => {
+  const isLoggedIn = useSelector((state) => state.userAuth.isLoggedIn);
   const [loginDisplay, setIsLoginDisplay] = useState(false);
   const [SignOffDisplay, setIsSignOffDisplay] = useState(false);
+
+  const renderMainTab = () => {
+    if (isLoggedIn) {
+      return <Card />;
+    } else if (loginDisplay) {
+      return <SignInForm />;
+    } else if (SignOffDisplay) {
+      return <SignUpForm />;
+    }
+  };
 
   const AuthPageHandler = (page) => {
     if (page === "login-page") {
@@ -21,15 +33,13 @@ const App = () => {
       setIsSignOffDisplay(true);
     }
   };
+
   return (
-    <Provider store={store}>
-      <div id="Layout">
-        <ResponsiveAppBar onBtnClick={AuthPageHandler} />
-        {loginDisplay && <SignInForm />}
-        {SignOffDisplay && <SignUpForm />}
-        <Footer />
-      </div>
-    </Provider>
+    <div id="Layout">
+      <ResponsiveAppBar onBtnClick={AuthPageHandler} />
+      {renderMainTab()}
+      <Footer />
+    </div>
   );
 };
 
