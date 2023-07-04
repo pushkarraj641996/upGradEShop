@@ -1,20 +1,22 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import TextField from "@mui/material/TextField";
 
 import "./TextBox.css";
 
-const InputBox = (props) => {
+const InputBox = forwardRef((props, ref) => {
   return (
     <div id="TextBox">
       <TextField
-        id="outlined-basic"
+        name={props.name}
         label={props.children}
         variant="outlined"
         required
         fullWidth
+        type={props.inputType}
+        inputRef={ref}
       />
     </div>
   );
-};
+});
 
 export default InputBox;

@@ -1,0 +1,18 @@
+#BoxLayout {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  height: auto;
+  margin: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 2px black;
+  box-shadow: 5px;
+}
+
+#Divider {
+  width: 1px;
+  height: auto;
+  background-color: grey;
+  opacity: 0.4;
+}

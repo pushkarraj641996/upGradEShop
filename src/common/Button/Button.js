@@ -17,7 +17,12 @@ const MyButton = (props) => {
   return (
     <div id="ButtonStd">
       <ThemeProvider theme={theme}>
-        <Button color="neutral" variant="contained" fullWidth>
+        <Button
+          onClick={props.clickHandler}
+          color="neutral"
+          variant="contained"
+          fullWidth
+        >
           {props.children}
         </Button>
       </ThemeProvider>

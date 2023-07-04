@@ -4,6 +4,7 @@ import ShoppingCartLogo from "@mui/icons-material/ShoppingCart";
 import InputBase from "@mui/material/InputBase";
 import Button from "@mui/material/Button";
 import { styled, alpha } from "@mui/material/styles";
+import { useSelector } from "react-redux";
 
 import "./AppBar.css";
 
@@ -49,29 +50,34 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function ResponsiveAppBar() {
+const ResponsiveAppBar = (props) => {
+  const isLoggedIn = useSelector((state) => state.userAuth.isLoggedIn);
+
   return (
     <div id="Bar">
       <div id="LogoBar">
         <ShoppingCartLogo id="Logo" />
         <div id="Text">upGrad E-Shop</div>
       </div>
-      <div id="LogoBar" style={{ width: "25%" }}>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
-      </div>
+      {isLoggedIn === true ? (
+        <div id="LogoBar" style={{ width: "25%" }}>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+        </div>
+      ) : null}
       <div id="LogoBar">
         <Button
           variant="text"
           color="inherit"
           style={{ textDecoration: "underline" }}
+          onClick={() => props.onBtnClick("login-page")}
         >
           Login
         </Button>
@@ -79,11 +85,12 @@ function ResponsiveAppBar() {
           variant="text"
           color="inherit"
           style={{ textDecoration: "underline" }}
+          onClick={() => props.onBtnClick("signup-page")}
         >
           Signup
         </Button>
       </div>
     </div>
   );
-}
+};
 export default ResponsiveAppBar;
