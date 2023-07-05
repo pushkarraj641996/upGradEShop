@@ -105,7 +105,9 @@ const SignUpForm = (props) => {
       <TextBox ref={phRef} inputType={"number"}>
         Contact Number
       </TextBox>
-      <Button clickHandler={formValidator}>SIGN Up</Button>
+      <Button var="contained" clickHandler={formValidator}>
+        SIGN Up
+      </Button>
       <a href="#">Already have an account? Sign In</a>
       <SnackBar
         open={snackBarData.open}

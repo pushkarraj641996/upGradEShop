@@ -20,7 +20,7 @@ const MyButton = (props) => {
         <Button
           onClick={props.clickHandler}
           color="neutral"
-          variant="contained"
+          variant={props.var}
           fullWidth
         >
           {props.children}

@@ -39,7 +39,9 @@ const ProductPage = (props) => {
         <QtyField ref={qtyRef} inputType="number">
           Quantity
         </QtyField>
-        <OrderButton clickHandler={handlePurchaseQty}>PLACE ORDER</OrderButton>
+        <OrderButton var="contained" clickHandler={handlePurchaseQty}>
+          PLACE ORDER
+        </OrderButton>
       </div>
     </div>
   );

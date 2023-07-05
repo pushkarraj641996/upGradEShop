@@ -85,7 +85,9 @@ const AddressPage = (props) => {
         <TextBox ref={zipRef} type="number">
           ZipCode
         </TextBox>
-        <Button clickHandler={newAddressHandler}>SAVE ADDRESS</Button>
+        <Button var="contained" clickHandler={newAddressHandler}>
+          SAVE ADDRESS
+        </Button>
       </div>
     </div>
   );

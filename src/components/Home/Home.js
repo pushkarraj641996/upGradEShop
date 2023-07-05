@@ -1,10 +1,11 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 
 import Card from "../Card/Card";
 import Filter from "../ToggleButton/ToggleButton";
 import Sorter from "../../common/DropDownMenu/DropDownMenu";
 
 import "./Home.css";
+import AlertDialog from "../../common/Dialog/AlertDialog/AlertDialog";
 
 const FilterTypes = {
   ALL: "0",
@@ -109,9 +110,12 @@ const items = [
 let newItemsList = [...items];
 
 const Home = (props) => {
-  const [render, setRender] = useState(false);
   const [filter, setFilter] = useState(FilterTypes.ALL);
   const [sort, setSort] = useState(0);
+  const [displayAlertData, setDisplayAlertData] = useState({
+    display: false,
+    id: "",
+  });
 
   const filterSelectHandler = (event, itemCategory) => {
     setFilter(itemCategory);
@@ -123,13 +127,30 @@ const Home = (props) => {
     );
   };
 
-  const deleteHandler = (id) => {
+  const confirmDeleteHandler = (id) => {
     newItemsList.forEach((item, index) => {
       if (item.id === id) {
         newItemsList.splice(index, 1);
       }
     });
-    setRender(!render);
+    setDisplayAlertData({
+      display: false,
+      id: "",
+    });
+  };
+
+  const cancelDeleteHandler = () => {
+    setDisplayAlertData({
+      display: false,
+      id: "",
+    });
+  };
+
+  const deleteHandler = (id) => {
+    setDisplayAlertData({
+      display: true,
+      id: id,
+    });
   };
 
   const sortSelectHandler = (event) => {
@@ -162,9 +183,9 @@ const Home = (props) => {
         {newItemsList.map((item) => {
           if (
             (item.type === filter || filter === FilterTypes.ALL) &&
-            (item.name.toLowerCase().search(props.searchStr.toLowerCase()) ==
+            (item.name.toLowerCase().search(props.searchStr.toLowerCase()) ===
               0 ||
-              item.name.toLowerCase().search(props.searchStr.toLowerCase()) !=
+              item.name.toLowerCase().search(props.searchStr.toLowerCase()) !==
                 -1)
           ) {
             return (
@@ -179,6 +200,14 @@ const Home = (props) => {
           }
         })}
       </div>
+      {displayAlertData.display ? (
+        <AlertDialog
+          id={displayAlertData.id}
+          display={displayAlertData.display}
+          confirm={confirmDeleteHandler}
+          cancel={cancelDeleteHandler}
+        />
+      ) : null}
     </div>
   );
 };

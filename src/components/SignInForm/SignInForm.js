@@ -87,7 +87,9 @@ const SignInForm = (props) => {
       >
         Password
       </TextBox>
-      <Button clickHandler={submitForm}>SIGN IN</Button>
+      <Button var="contained" clickHandler={submitForm}>
+        SIGN IN
+      </Button>
       <a href="#">Don't have an acount? Sign Up</a>
     </div>
   );
