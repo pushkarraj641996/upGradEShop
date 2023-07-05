@@ -48,7 +48,7 @@ const items = [
     AvailableQty: 150,
     price: 19500,
     imageURL:
-      "https://imagescdn.thecollective.in/img/app/product/8/875671-10462443.jpg?w=100",
+      "https://imagescdn.thecollective.in/img/app/product/7/795145-9342418.jpg",
     Description: "Men Blue Parkside Active Stretch Jean",
     type: FilterTypes.APAREL,
   },
@@ -149,16 +149,24 @@ const Home = (props) => {
         />
       </div>
       <div id="Catalog">
-        {newItemsList.map((item) =>
-          item.type === filter || filter === FilterTypes.ALL ? (
-            <Card
-              key={item.id}
-              id={item.id}
-              data={item}
-              clickHandler={buyClickHandler}
-            />
-          ) : null
-        )}
+        {newItemsList.map((item) => {
+          if (
+            (item.type === filter || filter === FilterTypes.ALL) &&
+            (item.name.toLowerCase().search(props.searchStr.toLowerCase()) ==
+              0 ||
+              item.name.toLowerCase().search(props.searchStr.toLowerCase()) !=
+                -1)
+          ) {
+            return (
+              <Card
+                key={item.id}
+                id={item.id}
+                data={item}
+                clickHandler={buyClickHandler}
+              />
+            );
+          }
+        })}
       </div>
     </div>
   );

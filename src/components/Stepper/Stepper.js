@@ -1,20 +1,19 @@
-import * as React from "react";
+import { React, useRef, useState, Fragment } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import ProductInfo from "../ProductInfo/ProductInfo";
-import NewAddressPage from "./AddressPage/AddressPage";
+import NewAddressPage from "../AddressPage/AddressPage";
 import OrderSummary from "../OrderSummary/OrderSummary";
-import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
+import SnackBar from "../SnackBar/SnackBar";
 
 const steps = ["Items", "Select Address", "Confirm Order"];
 
 export default function HorizontalLinearStepper(props) {
-  let selectedAddress;
-
-  const [activeStep, setActiveStep] = React.useState(0);
+  const selectedAddress = useRef();
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -24,10 +23,13 @@ export default function HorizontalLinearStepper(props) {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const addressHandler = address => {
-    console.log(address);
-    selectedAddress = address;
-  }
+  const addressHandler = (address) => {
+    selectedAddress.current = address;
+  };
+
+  const closeSnackBar = () => {
+    props.redirectBack("default");
+  };
 
   return (
     <Box sx={{ width: "70%" }}>
@@ -42,39 +44,53 @@ export default function HorizontalLinearStepper(props) {
           );
         })}
       </Stepper>
-      <React.Fragment>
-        {activeStep === 0 ? <ProductInfo item={props.cartItem} /> : null }
-        {activeStep === 1 ? <NewAddressPage address={addressHandler} /> : null }
-        {activeStep === 2 ? <OrderSummary data={props.cartItem} address={selectedAddress} /> : null}
-        {activeStep === 3? <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        message="I love snacks"
-        key={vertical + horizontal}
-      /> : null}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            pt: 2,
-          }}
-        >
-          <Button
-            color="inherit"
-            disabled={activeStep === 0}
-            onClick={handleBack}
-            sx={{ mr: 1 }}
+      <Fragment>
+        {activeStep === 0 ? <ProductInfo item={props.cartItem} /> : null}
+        {activeStep === 1 ? <NewAddressPage address={addressHandler} /> : null}
+        {activeStep === 2 ? (
+          <OrderSummary
+            data={props.cartItem}
+            address={selectedAddress.current}
+          />
+        ) : null}
+        {activeStep >= 3 ? (
+          <div>
+            <OrderSummary
+              data={props.cartItem}
+              address={selectedAddress.current}
+            />
+            <SnackBar onCloseHandler={closeSnackBar} />
+          </div>
+        ) : null}
+        {activeStep < steps.length ? (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              pt: 2,
+            }}
           >
-            Back
-          </Button>
+            <Button
+              color="inherit"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ mr: 1 }}
+              style={{ marginBottom: 200 }}
+            >
+              Back
+            </Button>
 
-          <Button variant="contained" onClick={handleNext}>
-            {activeStep === steps.length - 1 ? "Place Order" : "Next"}
-          </Button>
-        </Box>
-      </React.Fragment>
+            <Button
+              variant="contained"
+              onClick={handleNext}
+              style={{ marginBottom: 200 }}
+            >
+              {activeStep === steps.length - 1 ? "Place Order" : "Next"}
+            </Button>
+          </Box>
+        ) : null}
+      </Fragment>
     </Box>
   );
 }

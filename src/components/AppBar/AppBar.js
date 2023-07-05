@@ -55,7 +55,7 @@ const ResponsiveAppBar = (props) => {
 
   return (
     <div id="Bar">
-      <div id="LogoBar">
+      <div id="LogoBar" onClick={() => props.onBtnClick("home-page")}>
         <ShoppingCartLogo id="Logo" />
         <div id="Text">upGrad E-Shop</div>
       </div>
@@ -68,6 +68,7 @@ const ResponsiveAppBar = (props) => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onChange={props.searchContent}
             />
           </Search>
         </div>
@@ -83,9 +84,9 @@ const ResponsiveAppBar = (props) => {
             Home
           </Button>
           <Button
-            variant="text"
+            variant="contained"
+            style={{ backgroundColor: "#F017C2" }}
             color="inherit"
-            style={{ textDecoration: "underline" }}
             onClick={() => props.onBtnClick("signoff-page")}
           >
             Logout

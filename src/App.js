@@ -15,6 +15,7 @@ import "./App.css";
 const App = () => {
   const isLoggedIn = useSelector((state) => state.userAuth.isLoggedIn);
   const [displayPage, setDisplayPage] = useState({ page: "", payload: null });
+  const [searchData, setSearchData] = useState("");
 
   const dispatch = useDispatch();
 
@@ -30,6 +31,10 @@ const App = () => {
     setDisplayPage({ page: page, payload: null });
   };
 
+  const redirectHome = (page) => {
+    setDisplayPage({ page: page, payload: null });
+  };
+
   const renderMainTab = () => {
     if (displayPage.page === "signoff-page") {
       dispatch(Logout());
@@ -39,7 +44,12 @@ const App = () => {
     } else if (displayPage.page === "signup-page") {
       return <SignUpForm />;
     } else if (displayPage.page === "checkout") {
-      return <CheckoutPage cartItem={displayPage.payload} />;
+      return (
+        <CheckoutPage
+          redirectBack={redirectHome}
+          cartItem={displayPage.payload}
+        />
+      );
     } else if (isLoggedIn) {
       if (displayPage.page === "Product") {
         return (
@@ -49,14 +59,23 @@ const App = () => {
           />
         );
       } else {
-        return <Home buyClickHandle={ProductRenderHandler} />;
+        return (
+          <Home searchStr={searchData} buyClickHandle={ProductRenderHandler} />
+        );
       }
     }
   };
 
+  const searchHandler = (event) => {
+    setSearchData(event.target.value);
+  };
+
   return (
     <div id="Layout">
-      <ResponsiveAppBar onBtnClick={PageHandler} />
+      <ResponsiveAppBar
+        searchContent={searchHandler}
+        onBtnClick={PageHandler}
+      />
       {renderMainTab()}
       <Footer />
     </div>

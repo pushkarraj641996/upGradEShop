@@ -14,8 +14,8 @@ const ProductInfo = (props) => {
     <div id="OuterLayout">
       <img src={props.item.imageURL} />
       <div id="ProductInfoLayout">
-          <h2>{props.item.name}</h2>
-          <p>Available Qty: {props.item.AvailableQty}</p>
+        <h2>{props.item.name}</h2>
+        <p>Quantity: {props.item.qty}</p>
         <p>
           Category: <b>{Object.keys(FilterTypes)[props.item.type]}</b>
         </p>
