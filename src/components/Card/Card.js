@@ -68,8 +68,12 @@ const ProductCardView = (props) => {
           </Button>
           {isAdminLoggedIn ? (
             <div id="SubElem">
-              <EditIcon color="action" />
-              <DeleteIcon color="action" />
+              <EditIcon color="action" sx={{ cursor: "pointer" }} />
+              <DeleteIcon
+                onClick={() => props.delete(props.id)}
+                color="action"
+                sx={{ cursor: "pointer" }}
+              />
             </div>
           ) : null}
         </div>

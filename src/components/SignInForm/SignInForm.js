@@ -6,7 +6,6 @@ import Button from "../../common/Button/Button";
 import { Login } from "../../common/store/Actions/AuthenticateActionPayloadCreator";
 
 import "./SignInForm.css";
-import SnackBar from "../SnackBar/SnackBar";
 
 const SignInForm = (props) => {
   const emailRef = createRef();

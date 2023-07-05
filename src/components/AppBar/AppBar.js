@@ -52,6 +52,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const ResponsiveAppBar = (props) => {
   const isLoggedIn = useSelector((state) => state.userAuth.isLoggedIn);
+  const isAdminLoggedIn = useSelector(
+    (state) => state.userAuth.isAdminLoggedIn
+  );
+  console.log(isAdminLoggedIn);
 
   return (
     <div id="Bar">
@@ -83,6 +87,16 @@ const ResponsiveAppBar = (props) => {
           >
             Home
           </Button>
+          {isAdminLoggedIn ? (
+            <Button
+              variant="text"
+              color="inherit"
+              style={{ textDecoration: "underline" }}
+              onClick={() => props.onBtnClick("home-page")}
+            >
+              Add Product
+            </Button>
+          ) : null}
           <Button
             variant="contained"
             style={{ backgroundColor: "#F017C2" }}

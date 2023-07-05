@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 
 import Card from "../Card/Card";
 import Filter from "../ToggleButton/ToggleButton";
@@ -109,6 +109,7 @@ const items = [
 let newItemsList = [...items];
 
 const Home = (props) => {
+  const [render, setRender] = useState(false);
   const [filter, setFilter] = useState(FilterTypes.ALL);
   const [sort, setSort] = useState(0);
 
@@ -120,6 +121,15 @@ const Home = (props) => {
     items.forEach((item) =>
       item.id === id ? props.buyClickHandle(item) : null
     );
+  };
+
+  const deleteHandler = (id) => {
+    newItemsList.forEach((item, index) => {
+      if (item.id === id) {
+        newItemsList.splice(index, 1);
+      }
+    });
+    setRender(!render);
   };
 
   const sortSelectHandler = (event) => {
@@ -163,6 +173,7 @@ const Home = (props) => {
                 id={item.id}
                 data={item}
                 clickHandler={buyClickHandler}
+                delete={deleteHandler}
               />
             );
           }

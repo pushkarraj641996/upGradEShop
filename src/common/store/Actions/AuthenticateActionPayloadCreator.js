@@ -2,7 +2,7 @@ export const Login = (username) => {
   return {
     type: "LOGIN",
     isLoggedIn: true,
-    isAdminLoggedIn: username.toLowerCase() === "admin" ? true : false,
+    isAdminLoggedIn: username.toLowerCase().includes("admin") ? true : false,
   };
 };
 
