@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import LockIcon from "@mui/icons-material/Lock";
 import TextBox from "../../common/InputBox/TextBox";
@@ -11,24 +11,68 @@ const SignInForm = (props) => {
   const emailRef = createRef();
   const passwordRef = createRef();
 
+  const [validUsername, setValidUsername] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
+
   const dispatch = useDispatch();
 
   const submitForm = () => {
-    dispatch(Login(emailRef.current.value));
-    props.submitHandler({
-      page: "home-page",
-      payload: null,
-    });
+    if (
+      validateUsername(emailRef.current.value) &
+      validatePassword(passwordRef.current.value)
+    ) {
+      dispatch(Login(emailRef.current.value));
+      props.submitHandler({
+        page: "home-page",
+        payload: null,
+      });
+    }
+  };
+
+  const validateUsername = (username) => {
+    if (username != "" && username.includes("@") && username.includes(".com")) {
+      setValidUsername(true);
+    } else {
+      setValidUsername(false);
+    }
+  };
+
+  const validatePassword = (password) => {
+    if (password != "" && password.length > 0) {
+      setValidPassword(true);
+    } else {
+      setValidPassword(false);
+    }
+  };
+
+  const updateUsername = (event) => {
+    validateUsername(event.target.value.trim());
+  };
+
+  const updatePassword = (event) => {
+    validatePassword(event.target.value.trim());
   };
 
   return (
     <div id="FormBox">
       <LockIcon id="Icon" />
       <p id="Text">Sign In</p>
-      <TextBox name="email" inputType="email" ref={emailRef}>
+      <TextBox
+        error={!validUsername}
+        name="email"
+        inputType="email"
+        ref={emailRef}
+        onChange={updateUsername}
+      >
         Email Address
       </TextBox>
-      <TextBox name="password" inputType="password" ref={passwordRef}>
+      <TextBox
+        error={!validPassword}
+        name="password"
+        inputType="password"
+        ref={passwordRef}
+        onChange={updatePassword}
+      >
         Password
       </TextBox>
       <Button clickHandler={submitForm}>SIGN IN</Button>

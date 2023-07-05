@@ -7,6 +7,7 @@ const InputBox = forwardRef((props, ref) => {
   return (
     <div id="TextBox">
       <TextField
+        error={props.error}
         name={props.name}
         label={props.children}
         variant="outlined"
@@ -14,6 +15,7 @@ const InputBox = forwardRef((props, ref) => {
         fullWidth
         type={props.inputType}
         inputRef={ref}
+        onChange={props.onChange}
       />
     </div>
   );
