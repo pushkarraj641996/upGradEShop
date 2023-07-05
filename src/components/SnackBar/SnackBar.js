@@ -5,12 +5,12 @@ const SnackBar = (props) => {
   return (
     <Snackbar
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      open={true}
+      open={props.open}
       autoHideDuration={2000}
       onClose={props.onCloseHandler}
     >
-      <Alert severity="success" sx={{ width: "100%" }}>
-        Order Placed successfully
+      <Alert severity={props.sev} sx={{ width: "100%" }}>
+        {props.children}
       </Alert>
     </Snackbar>
   );

@@ -59,7 +59,13 @@ export default function HorizontalLinearStepper(props) {
               data={props.cartItem}
               address={selectedAddress.current}
             />
-            <SnackBar onCloseHandler={closeSnackBar} />
+            <SnackBar
+              open={true}
+              sev={"success"}
+              onCloseHandler={closeSnackBar}
+            >
+              Order Placed successfully
+            </SnackBar>
           </div>
         ) : null}
         {activeStep < steps.length ? (

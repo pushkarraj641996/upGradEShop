@@ -26,7 +26,7 @@ const OrderSummary = (props) => {
           <i>{props.data.Description}</i>
         </p>
         <p style={{ color: "red", fontFamily: "inherit", fontSize: "20px" }}>
-          Total Price: &#8377; {props.data.price}
+          Total Price: &#8377; {props.data.price * props.data.qty}
         </p>
       </div>
       <div id="VerticalLine" />

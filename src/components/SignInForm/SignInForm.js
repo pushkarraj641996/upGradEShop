@@ -6,6 +6,7 @@ import Button from "../../common/Button/Button";
 import { Login } from "../../common/store/Actions/AuthenticateActionPayloadCreator";
 
 import "./SignInForm.css";
+import SnackBar from "../SnackBar/SnackBar";
 
 const SignInForm = (props) => {
   const emailRef = createRef();
@@ -21,10 +22,18 @@ const SignInForm = (props) => {
       validateUsername(emailRef.current.value) &
       validatePassword(passwordRef.current.value)
     ) {
-      dispatch(Login(emailRef.current.value));
-      props.submitHandler({
-        page: "home-page",
-        payload: null,
+      console.log("Submit");
+      props.authdata.map((user) => {
+        if (
+          user.userName === emailRef.current.value &&
+          user.password === passwordRef.current.value
+        ) {
+          dispatch(Login(emailRef.current.value));
+          props.submitHandler({
+            page: "home-page",
+            payload: null,
+          });
+        }
       });
     }
   };
@@ -32,16 +41,20 @@ const SignInForm = (props) => {
   const validateUsername = (username) => {
     if (username != "" && username.includes("@") && username.includes(".com")) {
       setValidUsername(true);
+      return true;
     } else {
       setValidUsername(false);
+      return false;
     }
   };
 
   const validatePassword = (password) => {
     if (password != "" && password.length > 0) {
       setValidPassword(true);
+      return true;
     } else {
       setValidPassword(false);
+      return false;
     }
   };
 

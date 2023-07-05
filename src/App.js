@@ -13,6 +13,22 @@ import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 
 const App = () => {
+  const AuthDetails = [
+    {
+      userName: "praj@gmail.com",
+      password: "HelloWorld",
+    },
+    {
+      userName: "admin@user.com",
+      password: "convedia",
+    },
+  ];
+
+  const newUserHandler = (user) => {
+    AuthDetails.push(user);
+    setDisplayPage({ page: "signup-page", payload: null });
+  };
+
   const isLoggedIn = useSelector((state) => state.userAuth.isLoggedIn);
   const [displayPage, setDisplayPage] = useState({ page: "", payload: null });
   const [searchData, setSearchData] = useState("");
@@ -40,9 +56,9 @@ const App = () => {
       dispatch(Logout());
       return null;
     } else if (displayPage.page === "login-page") {
-      return <SignInForm submitHandler={PageHandler} />;
+      return <SignInForm authdata={AuthDetails} submitHandler={PageHandler} />;
     } else if (displayPage.page === "signup-page") {
-      return <SignUpForm />;
+      return <SignUpForm newUser={newUserHandler} />;
     } else if (displayPage.page === "checkout") {
       return (
         <CheckoutPage
