@@ -7,7 +7,7 @@ import { Login } from "../../common/store/Actions/AuthenticateActionPayloadCreat
 
 import "./SignInForm.css";
 
-const SignInForm = () => {
+const SignInForm = (props) => {
   const emailRef = createRef();
   const passwordRef = createRef();
 
@@ -15,6 +15,10 @@ const SignInForm = () => {
 
   const submitForm = () => {
     dispatch(Login(emailRef.current.value));
+    props.submitHandler({
+      page: "home-page",
+      payload: null,
+    });
   };
 
   return (

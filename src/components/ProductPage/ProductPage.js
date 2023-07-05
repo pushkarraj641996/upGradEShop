@@ -1,23 +1,45 @@
-import React from "react";
+import { React, createRef } from "react";
 
 import QtyField from "../../common/InputBox/TextBox";
 import OrderButton from "../../common/Button/Button";
 import "./ProductPage.css";
 
-const ProductPage = () => {
+const FilterTypes = {
+  ALL: "0",
+  APAREL: "1",
+  ELECTRONICS: "2",
+  FOOTWEAR: "3",
+  PERSONAL_CARE: "4",
+};
+
+const ProductPage = (props) => {
+  const qtyRef = createRef();
+
+  const handlePurchaseQty = () => {
+    props.cartHandler({ ...props.item, qty: qtyRef.current.value });
+  };
+
   return (
     <div id="OuterLayout">
-      <img src="https://d2d22nphq0yz8t.cloudfront.net/88e6cc4b-eaa1-4053-af65-563d88ba8b26/https://media.croma.com/image/upload/v1662703105/Croma%20Assets/Communication/Mobiles/Images/261963_oqrd6j.png/mxw_2256,f_auto" />
+      <img src={props.item.imageURL} />
       <div id="ProductInfoLayout">
         <div id="Heading">
-          <h3>Iphone 14</h3>
-          <p>Available Qty: 5</p>
+          <h2>{props.item.name}</h2>
+          <p>Available Qty: {props.item.AvailableQty}</p>
         </div>
-        <p>Category: Electronics</p>
-        <p>Description</p>
-        <p>&#8377; 100000</p>
-        <QtyField>Quantity</QtyField>
-        <OrderButton>PLACE ORDER</OrderButton>
+        <p>
+          Category: <b>{Object.keys(FilterTypes)[props.item.type]}</b>
+        </p>
+        <p>
+          <i>{props.item.Description}</i>
+        </p>
+        <p style={{ color: "red", fontFamily: "inherit", fontSize: "20px" }}>
+          &#8377; {props.item.price}
+        </p>
+        <QtyField ref={qtyRef} inputType="number">
+          Quantity
+        </QtyField>
+        <OrderButton clickHandler={handlePurchaseQty}>PLACE ORDER</OrderButton>
       </div>
     </div>
   );

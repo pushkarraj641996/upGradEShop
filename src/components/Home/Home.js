@@ -25,6 +25,7 @@ const items = [
   {
     id: 2001,
     name: "Iphone14",
+    AvailableQty: 20,
     price: 120000,
     imageURL:
       "https://d2d22nphq0yz8t.cloudfront.net/88e6cc4b-eaa1-4053-af65-563d88ba8b26/https://media.croma.com/image/upload/v1662703105/Croma%20Assets/Communication/Mobiles/Images/261963_oqrd6j.png/mxw_2256,f_auto",
@@ -34,6 +35,7 @@ const items = [
   {
     id: 2002,
     name: "RRR Logo Tshirt",
+    AvailableQty: 450,
     price: 300,
     imageURL:
       "https://fullyfilmy.in/cdn/shop/products/New-Mockups---no-hanger---TShirt-Yellow.jpg?v=1639657077",
@@ -43,6 +45,7 @@ const items = [
   {
     id: 2003,
     name: "Polo Ralph Lauren",
+    AvailableQty: 150,
     price: 19500,
     imageURL:
       "https://imagescdn.thecollective.in/img/app/product/8/875671-10462443.jpg?w=100",
@@ -52,6 +55,7 @@ const items = [
   {
     id: 2004,
     name: "SAMSUNG Galaxy S23 Ultra 5G",
+    AvailableQty: 50,
     price: 124000,
     imageURL:
       "https://www.91-cdn.com/hub/wp-content/uploads/2022/09/20220929_173949_0000.png",
@@ -62,6 +66,7 @@ const items = [
   {
     id: 2005,
     name: "Bruton Running Shoes for Men",
+    AvailableQty: 10,
     price: 349,
     imageURL:
       "https://www.jiomart.com/images/product/500x630/rvnezaqnsd/bruton-running-shoes-for-men-product-images-rvnezaqnsd-0-202206141815.jpg",
@@ -71,6 +76,7 @@ const items = [
   {
     id: 2006,
     name: "AirPods (3rd generation)",
+    AvailableQty: 6,
     price: 20900,
     imageURL:
       "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MME73?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1632861342000",
@@ -81,6 +87,7 @@ const items = [
   {
     id: 2007,
     name: "Himalaya Natural Glow Kesar Face Wash",
+    AvailableQty: 200,
     price: 156,
     imageURL: "https://m.media-amazon.com/images/I/51CXZHh+UxL.jpg",
     Description:
@@ -90,6 +97,7 @@ const items = [
   {
     id: 2008,
     name: "L'Oreal Paris Shampoo",
+    AvailableQty: 60,
     price: 549,
     imageURL: "https://m.media-amazon.com/images/I/31th5NMMyNL.jpg",
     Description:
@@ -109,7 +117,9 @@ const Home = (props) => {
   };
 
   const buyClickHandler = (id) => {
-    props.buyClickHandle(id);
+    items.forEach((item) =>
+      item.id === id ? props.buyClickHandle(item) : null
+    );
   };
 
   const sortSelectHandler = (event) => {
@@ -127,7 +137,7 @@ const Home = (props) => {
     setSort(event.target.value);
   };
   return (
-    <div id="OuterLayout">
+    <div id="HomePageLayout">
       <div id="Filter">
         <Filter value={filter} clickHandler={filterSelectHandler} />
       </div>

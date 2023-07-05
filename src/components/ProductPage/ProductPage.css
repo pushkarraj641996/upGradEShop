@@ -36,9 +36,19 @@
   width: 100%;
   font-family: inherit;
   color: inherit;
+  align-items: center;
 }
 
 #Heading * {
-  margin: 5px;
   align-content: center;
+  font-family: inherit;
+}
+
+#Heading p {
+  background-color: #3f51b5;
+  font-family: inherit;
+  border-radius: 15px;
+  color: white;
+  padding: 5px;
+  margin: 0 0 0 20px;
 }
