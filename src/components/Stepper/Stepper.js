@@ -4,12 +4,16 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import ProductPage from "../ProductPage/ProductPage";
+import ProductInfo from "../ProductInfo/ProductInfo";
+import NewAddressPage from "./AddressPage/AddressPage";
+import OrderSummary from "../OrderSummary/OrderSummary";
+import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 
 const steps = ["Items", "Select Address", "Confirm Order"];
 
 export default function HorizontalLinearStepper(props) {
+  let selectedAddress;
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -20,14 +24,15 @@ export default function HorizontalLinearStepper(props) {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  const addressHandler = address => {
+    console.log(address);
+    selectedAddress = address;
+  }
 
   return (
     <Box sx={{ width: "70%" }}>
       <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
+        {steps.map((label) => {
           const stepProps = {};
           const labelProps = {};
           return (
@@ -38,7 +43,16 @@ export default function HorizontalLinearStepper(props) {
         })}
       </Stepper>
       <React.Fragment>
-        <ProductPage item={props.cartItem} />
+        {activeStep === 0 ? <ProductInfo item={props.cartItem} /> : null }
+        {activeStep === 1 ? <NewAddressPage address={addressHandler} /> : null }
+        {activeStep === 2 ? <OrderSummary data={props.cartItem} address={selectedAddress} /> : null}
+        {activeStep === 3? <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        message="I love snacks"
+        key={vertical + horizontal}
+      /> : null}
         <Box
           sx={{
             display: "flex",
@@ -57,7 +71,7 @@ export default function HorizontalLinearStepper(props) {
           </Button>
 
           <Button variant="contained" onClick={handleNext}>
-            {activeStep === steps.length - 1 ? "Finish" : "Next"}
+            {activeStep === steps.length - 1 ? "Place Order" : "Next"}
           </Button>
         </Box>
       </React.Fragment>
